@@ -24,11 +24,11 @@ struct DataPacketScope
 {
 	enum Scope 
 	{
-		responce,
-		personal,
 		map,
 		game,
-		server
+		server,
+		direct,
+		responce
 	};
 };
 
@@ -48,6 +48,7 @@ struct DataPacketSlot
 		mtint,
 		weather,
 		jump,
+		chatmsg,
 		spritebitmap,
 		SlotsRange(pic, PIC_SLOTS),
 		SlotsRange(var, VAR_SLOTS),

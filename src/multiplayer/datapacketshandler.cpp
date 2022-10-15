@@ -8,7 +8,8 @@
 #include "packets/jumppacket.h"
 #include "packets/soundpacket.h"
 #include "packets/spritebitmappacket.h"
-
+#include "packets/chatmsgpacket.h"
+#include "chat.h"
 void HandleDataPacket(IDataPacket* packet) 
 {
 	if(packet->slot >= DataPacketSlot::lastSlot) 
@@ -63,10 +64,19 @@ void HandleDataPacket(IDataPacket* packet)
 	case DataPacketSlot::jump:
 	if(dataOwnerCharacter.get()) 
 	{
-		IJumpPacket* jump = (IJumpPacket*)jump;
+		IJumpPacket* jump = (IJumpPacket*)packet;
 		dataOwnerCharacter->Jump(jump->x, jump->y);
 	}
 	break;
+	
+	case DataPacketSlot::chatmsg:
+	{
+		IChatMsgPacket* msg = (IChatMsgPacket*)packet;
+		if(Chat::HasInstance())
+			Chat::Instance().PushMessage(msg);
+	}
+	break;
+	
 	default:
 		break;
 	}

@@ -19,7 +19,7 @@
 #include <cstring>
 #include "system.h"
 #include "sdl2_ui.h"
-#include "chat.h"
+#include "multiplayer/chat.h"
 
 #ifdef _WIN32
 #  include <windows.h>
@@ -567,11 +567,23 @@ void Sdl2Ui::ProcessEvent(SDL_Event &evnt) {
 			Player::exit_flag = true;
 			return;
 		case SDL_TEXTINPUT:
-			Chat::Instance().ProcessTextInput(evnt);
+			if(Chat::HasInstance())
+				if(Chat::Instance().GetFocus())
+					Chat::Instance().ProcessTextInput(evnt);
 			return;
 		case SDL_KEYDOWN:
-			ProcessKeyDownEvent(evnt);
-			Chat::Instance().ProcessKeyDown(evnt);
+			if(evnt.key.keysym.sym == SDLK_TAB && Chat::HasInstance()) 
+			{
+				Chat::Instance().SetFocus(!Chat::Instance().GetFocus());
+			}
+			if(Chat::HasInstance() && Chat::Instance().GetFocus()) 
+			{
+				Chat::Instance().ProcessKeyDown(evnt);
+			} 
+			else 
+			{
+				ProcessKeyDownEvent(evnt);
+			}
 			return;
 
 		case SDL_KEYUP:

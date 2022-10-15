@@ -7,7 +7,7 @@
 void MultiplayerStart() 
 {
 	Output::Debug("Multiplayer start");
-	Connect("ws://localhost:4040", "Yume Nikki", Credentials());
+	Connect("ws://yumenikki.online:7777", "Yume Nikki", Credentials());
 }
 
 void ChangeMap(int map) 

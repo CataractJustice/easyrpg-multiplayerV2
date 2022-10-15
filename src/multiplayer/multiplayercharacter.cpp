@@ -174,23 +174,22 @@ void MultiplayerCharacter::FullresPass(BitmapRef& surface, int zoom)
 	}
 }
 
-std::unique_ptr<Chat> chat;
 
 void FullresDrawPass(BitmapRef& display_surface, int zoom) 
 {
 	MultiplayerCharacter::FullresPass(display_surface, zoom);
-	if(!chat) 
+	if(!Chat::HasInstance()) 
 	{
 		auto scene_map = Scene::Find(Scene::SceneType::Map);
 		if(scene_map != nullptr) {
-			chat = std::make_unique<Chat>(scene_map, zoom);
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "My Love For Hatsune Miku Is Constant And Sharp. And I Wish For A Better World For Everyone. In fact, I Want Miku To Be Inflicted On Others. I Want No One To Escape.", 16, zoom));
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "AAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 16, zoom));
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "Test test test", 16, zoom));
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "Blah blah blah", 16, zoom));
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "Жопа", 16, zoom));
-			chat->PushMessage(Message(0, Message::server, "Char0x61", "Shittin N Fartin Shittin N Fartin", 16, zoom));
+			Chat::MakeInstance(scene_map, zoom);
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "My Love For Hisui Is Constant And Sharp.", 16, zoom));
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "AAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 16, zoom));
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "Test test test", 16, zoom));
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "Blah blah blah", 16, zoom));
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "Жопа", 16, zoom));
+			Chat::Instance().PushMessage(Message(0, Message::server, "Char0x61", "Shittin N Fartin Shittin N Fartin", 16, zoom));
 		}
 	}
-	if(chat) chat->Draw(*display_surface);
+	if(Chat::HasInstance()) Chat::Instance().Draw(*display_surface);
 }

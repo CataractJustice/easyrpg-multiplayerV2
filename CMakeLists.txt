@@ -454,6 +454,8 @@ add_library(${PROJECT_NAME} STATIC
     src/multiplayer/packets/positionpacket.h
     src/multiplayer/packets/movespeedpacket.h
     src/multiplayer/packets/facingpacket.cpp
+	src/multiplayer/packets/chatmsgpacket.cpp
+	src/multiplayer/packets/chatmsgpacket.h
 	src/multiplayer/chat.cpp
 	src/multiplayer/chat.h
     src/multiplayer/connection.h
